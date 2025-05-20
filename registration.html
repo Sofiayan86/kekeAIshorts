@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>科技短影音創作者挑戰賽 - 報名表單</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .form-container {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1rem;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            background: #fff;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-top: 5px;
+        }
+
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-weight: normal;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .submit-button {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        .submit-button:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .info-box {
+            background: #e8f4fd;
+            border: 1px solid #3498db;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .info-box h3 {
+            color: #2980b9;
+            margin-bottom: 10px;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .success-message {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+        }
+
+        .back-link {
+            display: inline-block;
+            background: #95a5a6;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 25px;
+            margin-bottom: 20px;
+            transition: background 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 報名表單</h1>
+            <p>科技短影音創作者挑戰賽：引爆未來</p>
+        </div>
+        
+        <div class="form-container">
+            <a href="javascript:history.back()" class="back-link">← 返回活動頁面</a>
+            
+            <div class="info-box">
+                <h3>📋 報名須知</h3>
+                <ul>
+                    <li>本活動完全免費參加</li>
+                    <li>最多招募 20 組優秀創作者</li>
+                    <li>提交報名表後，我們會在 3 個工作天內聯繫您</li>
+                    <li>報名即代表同意活動所有條款</li>
+                </ul>
+            </div>
+
+            <div class="success-message" id="successMessage">
+                <strong>🎉 報名成功！</strong> 感謝您的報名，我們會在 3 個工作天內與您聯繫，請留意您的電子郵件。
+            </div>
+
+            <form id="registrationForm">
+                <!-- 基本資料 -->
+                <h3 style="color: #2c3e50; margin-bottom: 20px; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px;">👤 基本資料</h3>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">姓名 <span class="required">*</span></label>
+                        <input type="text" id="name" name="name" required>
+                        <div class="error-message" id="nameError">請輸入您的姓名</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="age">年齡</label>
+                        <select id="age" name="age">
+                            <option value="">請選擇年齡範圍</option>
+                            <option value="18歲以下">18歲以下</option>
+                            <option value="18-25歲">18-25歲</option>
+                            <option value="26-35歲">26-35歲</option>
+                            <option value="36-45歲">36-45歲</option>
+                            <option value="46歲以上">46歲以上</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">電子郵件 <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required>
+                        <div class="error-message" id="emailError">請輸入有效的電子郵件地址</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">聯絡電話 <span class="required">*</span></label>
+                        <input type="tel" id="phone" name="phone" required>
+                        <div class="error-message" id="phoneError">請輸入您的聯絡電話</div>
+                    </div>
+                </div>
+
+                <!-- YouTube 頻道資訊 -->
+                <h3 style="color: #2c3e50; margin: 40px 0 20px; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px;">📺 YouTube 頻道資訊</h3>
+                
+                <div class="form-group">
+                    <label for="channelName">YouTube 頻道名稱 <span class="required">*</span></label>
+                    <input type="text" id="channelName" name="channelName" required>
+                    <div class="error-message" id="channelNameError">請輸入您的 YouTube 頻道名稱</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="channelUrl">YouTube 頻道連結 <span class="required">*</span></label>
+                    <input type="url" id="channelUrl" name="channelUrl" placeholder="https://youtube.com/@你的頻道" required>
+                    <div class="error-message" id="channelUrlError">請輸入有效的 YouTube 頻道連結</div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="subscribers">目前訂閱人數</label>
+                        <select id="subscribers" name="subscribers">
+                            <option value="">請選擇訂閱人數範圍</option>
+                            <option value="0-100">0-100</option>
+                            <option value="101-1000">101-1,000</option>
+                            <option value="1001-10000">1,001-10,000</option>
+                            <option value="10001-100000">10,001-100,000</option>
+                            <option value="100000+">100,000+</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="experience">YouTube 創作經驗</label>
+                        <select id="experience" name="experience">
+                            <option value="">請選擇經驗年數</option>
+                            <option value="新手（0-6個月）">新手（0-6個月）</option>
+                            <option value="初級（6個月-1年）">初級（6個月-1年）</option>
+                            <option value="中級（1-3年）">中級（1-3年）</option>
+                            <option value="高級（3年以上）">高級（3年以上）</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 參賽企劃 -->
+                <h3 style="color: #2c3e50; margin: 40px 0 20px; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px;">🎬 參賽企劃</h3>
+                
+                <div class="form-group">
+                    <label for="videoTopic">影片主題方向 <span class="required">*</span></label>
+                    <select id="videoTopic" name="videoTopic" required>
+                        <option value="">請選擇您的影片主題方向</option>
+                        <option value="AI 應用/開箱評測">AI 應用/開箱評測</option>
+                        <option value="未來科技">未來科技</option>
+                        <option value="永續科技">永續科技</option>
+                        <option value="程式設計趣聞">程式設計趣聞</option>
+                        <option value="科技新知科普">科技新知科普</option>
+                        <option value="生活科技妙用">生活科技妙用</option>
+                        <option value="其他科技相關">其他科技相關</option>
+                    </select>
+                    <div class="error-message" id="videoTopicError">請選擇您的影片主題方向</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="videoIdea">影片企劃概述 <span class="required">*</span></label>
+                    <textarea id="videoIdea" name="videoIdea" placeholder="請簡述您的影片創意構想、預計拍攝內容、想要傳達的科技知識或觀點等（200-500字）" required></textarea>
+                    <div class="error-message" id="videoIdeaError">請輸入您的影片企劃概述</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="motivation">參賽動機</label>
+                    <textarea id="motivation" name="motivation" placeholder="請分享您參加這次挑戰賽的動機，以及對於與我們新頻道共同成長的期望（非必填，但能幫助我們更了解您）"></textarea>
+                </div>
+
+                <!-- 技術與設備 -->
+                <h3 style="color: #2c3e50; margin: 40px 0 20px; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px;">🛠 技術與設備</h3>
+                
+                <div class="form-group">
+                    <label for="equipment">拍攝設備</label>
+                    <select id="equipment" name="equipment">
+                        <option value="">請選擇主要拍攝設備</option>
+                        <option value="智慧型手機">智慧型手機</option>
+                        <option value="數位相機">數位相機</option>
+                        <option value="專業攝影機">專業攝影機</option>
+                        <option value="網路攝影機">網路攝影機</option>
+                        <option value="其他">其他</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editingSoftware">影片剪輯軟體</label>
+                    <select id="editingSoftware" name="editingSoftware">
+                        <option value="">請選擇主要使用的剪輯軟體</option>
+                        <option value="手機 App（如 CapCut、InShot）">手機 App（如 CapCut、InShot）</option>
+                        <option value="Adobe Premiere Pro">Adobe Premiere Pro</option>
+                        <option value="Final Cut Pro">Final Cut Pro</option>
+                        <option value="DaVinci Resolve">DaVinci Resolve</option>
+                        <option value="其他桌面軟體">其他桌面軟體</option>
+                    </select>
+                </div>
+
+                <!-- 同意條款 -->
+                <h3 style="color: #2c3e50; margin: 40px 0 20px; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px;">📜 同意條款</h3>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                    <label for="agreeTerms">
+                        我已詳細閱讀並同意本活動的所有條款，包括但不限於：<br>
+                        • 影片內容必須為原創作品<br>
+                        • 同意將影片授權給主辦方於活動相關用途使用<br>
+                        • 遵守 YouTube 社群規範及活動規則<br>
+                        • 接受以觀看次數作為評選標準<br>
+                        <span class="required">* 必須同意才能報名</span>
+                    </label>
+                </div>
+                <div class="error-message" id="agreeTermsError">請同意活動條款才能完成報名</div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="agreeContact" name="agreeContact">
+                    <label for="agreeContact">
+                        我同意接收活動相關資訊及未來合作機會通知（非必選）
+                    </label>
+                </div>
+
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>正在提交報名資料...</p>
+                </div>
+
+                <button type="submit" class="submit-button" id="submitButton">
+                    🚀 立即報名參加挑戰賽
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Google Apps Script Web App URL - 請替換為您的實際 URL
+        const SCRIPT_URL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';
+        
+        document.getElementById('registrationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // 驗證表單
+            if (!validateForm()) {
+                return;
+            }
+            
+            // 顯示載入狀態
+            showLoading(true);
+            
+            // 收集表單資料
+            const formData = new FormData(this);
+            const data = {};
+            
+            // 添加時間戳
+            data.timestamp = new Date().toLocaleString('zh-TW');
+            
+            // 轉換 FormData 為普通物件
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+            
+            try {
+                // 發送到 Google Sheets（如果您設定了 Google Apps Script）
+                if (SCRIPT_URL !== 'YOUR_GOOGLE_SCRIPT_URL_HERE') {
+                    const response = await fetch(SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'cors',
+                        cache: 'no-cache',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data)
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error('網路錯誤');
+                    }
+                }
+                
+                // 顯示成功訊息
+                showSuccess();
+                
+            } catch (error) {
+                console.error('提交錯誤:', error);
+                
+                // 即使網路錯誤，也顯示成功訊息並提供備用方案
+                alert('網路連線可能有問題，請您也可以直接發送郵件到主辦方信箱，或者稍後再試一次提交表單。');
+                
+                // 為用戶提供資料備份
+                downloadBackup(data);
+            }
+            
+            showLoading(false);
+        });
+        
+        function validateForm() {
+            let isValid = true;
+            
+            // 重置所有錯誤訊息
+            document.querySelectorAll('.error-message').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // 驗證必填欄位
+            const requiredFields = [
+                { id: 'name', message: '請輸入您的姓名' },
+                { id: 'email', message: '請輸入有效的電子郵件地址' },
+                { id: 'phone', message: '請輸入您的聯絡電話' },
+                { id: 'channelName', message: '請輸入您的 YouTube 頻道名稱' },
+                { id: 'channelUrl', message: '請輸入有效的 YouTube 頻道連結' },
+                { id: 'videoTopic', message: '請選擇您的影片主題方向' },
+                { id: 'videoIdea', message: '請輸入您的影片企劃概述' }
+            ];
+            
+            requiredFields.forEach(field => {
+                const element = document.getElementById(field.id);
+                const errorElement = document.getElementById(field.id + 'Error');
+                
+                if (!element.value.trim()) {
+                    errorElement.textContent = field.message;
+                    errorElement.style.display = 'block';
+                    isValid = false;
+                }
+            });
+            
+            // 驗證電子郵件格式
+            const email = document.getElementById('email').value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (email && !emailRegex.test(email)) {
+                document.getElementById('emailError').textContent = '請輸入有效的電子郵件格式';
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // 驗證同意條款
+            const agreeTerms = document.getElementById('agreeTerms');
+            if (!agreeTerms.checked) {
+                document.getElementById('agreeTermsError').style.display = 'block';
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        function showLoading(show) {
+            const loading = document.getElementById('loading');
+            const submitButton = document.getElementById('submitButton');
+            
+            if (show) {
+                loading.style.display = 'block';
+                submitButton.disabled = true;
+                submitButton.textContent = '提交中...';
+            } else {
+                loading.style.display = 'none';
+                submitButton.disabled = false;
+                submitButton.textContent = '🚀 立即報名參加挑戰賽';
+            }
+        }
+        
+        function showSuccess() {
+            document.getElementById('successMessage').style.display = 'block';
+            document.getElementById('registrationForm').style.display = 'none';
+            
+            // 滾動到成功訊息
+            document.getElementById('successMessage').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+        
+        function downloadBackup(data) {
+            // 創建資料備份文件
+            const content = `科技短影音創作者挑戰賽 - 報名資料備份\n報名時間：${data.timestamp}\n\n` +
+                           `姓名：${data.name}\n` +
+                           `電子郵件：${data.email}\n` +
+                           `聯絡電話：${data.phone}\n` +
+                           `YouTube 頻道：${data.channelName}\n` +
+                           `頻道連結：${data.channelUrl}\n` +
+                           `影片主題：${data.videoTopic}\n` +
+                           `企劃概述：${data.videoIdea}\n\n` +
+                           `請保存此文件作為報名證明，並聯繫主辦方確認收到報名資料。`;
+            
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `科技挑戰賽報名資料_${data.name}_${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+        
+        // 表單即時驗證
+        document.querySelectorAll('input, select, textarea').forEach(element => {
+            element.addEventListener('blur', function() {
+                const errorElement = document.getElementById(this.id + 'Error');
+                if (errorElement && this.hasAttribute('required') && !this.value.trim()) {
+                    errorElement.style.display = 'block';
+                } else if (errorElement) {
+                    errorElement.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
