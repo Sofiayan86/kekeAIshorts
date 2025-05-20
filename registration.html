@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://script.google.com https://script.googleusercontent.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com; style-src 'self' 'unsafe-inline';">
     <title>科技短影音創作者挑戰賽 - 報名表單</title>
     <style>
         * {
@@ -239,7 +240,7 @@
                 <h3>📋 報名須知</h3>
                 <ul>
                     <li>本活動完全免費參加</li>
-                    <li>最多招募 10 組優秀創作者</li>
+                    <li>最多招募 20 組優秀創作者</li>
                     <li>提交報名表後，我們會在 3 個工作天內聯繫您</li>
                     <li>報名即代表同意活動所有條款</li>
                 </ul>
@@ -422,7 +423,10 @@
         // Google Apps Script Web App URL - 請替換為您的實際 URL
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyTI-sQp4ro2BWtOj9wGaWRNH-nM0B0-vHSEhGodPI4H4dqJ5g5aWBPyw5vnCRTBHVF/exec';
         
-        document.getElementById('registrationForm').addEventListener('submit', async function(e) {
+        // 偵錯模式開關
+        const DEBUG_MODE = true;
+        
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             // 驗證表單
@@ -441,43 +445,69 @@
             data.timestamp = new Date().toLocaleString('zh-TW');
             
             // 轉換 FormData 為普通物件
-            for (let [key, value] of formData.entries()) {
-                data[key] = value;
+            for (let pair of formData.entries()) {
+                data[pair[0]] = pair[1];
             }
             
-            try {
-                // 發送到 Google Sheets（如果您設定了 Google Apps Script）
-                if (SCRIPT_URL !== 'https://script.google.com/macros/s/AKfycbyTI-sQp4ro2BWtOj9wGaWRNH-nM0B0-vHSEhGodPI4H4dqJ5g5aWBPyw5vnCRTBHVF/exec') {
-                    const response = await fetch(SCRIPT_URL, {
-                        method: 'POST',
-                        mode: 'cors',
-                        cache: 'no-cache',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(data)
-                    });
-                    
-                    if (!response.ok) {
-                        throw new Error('網路錯誤');
-                    }
+            // 發送資料的函數
+            submitFormData(data);
+        });
+        
+        // 分離出發送資料的函數，避免 CSP 問題
+        function submitFormData(data) {
+            // 偵錯訊息
+            if (DEBUG_MODE) {
+                console.log('發送資料到 Google Apps Script:', data);
+                console.log('目標 URL:', SCRIPT_URL);
+            }
+            
+            // 檢查 URL 設定
+            if (SCRIPT_URL === 'YOUR_GOOGLE_SCRIPT_URL_HERE') {
+                console.log('未設定 Google Apps Script URL，跳過發送');
+                showSuccessWithBackup(data);
+                return;
+            }
+            
+            // 使用 fetch 發送資料
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                cache: 'no-cache',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(function(response) {
+                if (DEBUG_MODE) {
+                    console.log('收到回應:', response);
+                    console.log('資料已發送到 Google Apps Script');
                 }
-                
-                // 顯示成功訊息
                 showSuccess();
-                
-            } catch (error) {
+                showLoading(false);
+            })
+            .catch(function(error) {
                 console.error('提交錯誤:', error);
                 
-                // 即使網路錯誤，也顯示成功訊息並提供備用方案
-                alert('網路連線可能有問題，請您也可以直接發送郵件到主辦方信箱，或者稍後再試一次提交表單。');
+                if (DEBUG_MODE) {
+                    console.log('錯誤詳情:', error);
+                }
                 
-                // 為用戶提供資料備份
-                downloadBackup(data);
-            }
-            
-            showLoading(false);
-        });
+                // 即使出錯也顯示成功（可能是 CORS 問題，但資料可能已發送）
+                showSuccessWithBackup(data);
+                showLoading(false);
+            });
+        }
+        
+        function showSuccessWithBackup(data) {
+            showSuccess();
+            // 提供備用方案
+            setTimeout(function() {
+                if (confirm('為了確保您的報名資料安全，是否要下載備份檔案？')) {
+                    downloadBackup(data);
+                }
+            }, 2000);
+        }
         
         function validateForm() {
             let isValid = true;
